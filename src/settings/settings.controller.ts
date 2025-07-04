@@ -3,11 +3,16 @@ import { SettingsService } from './settings.service';
 
 @Controller('api/settings')
 export class SettingsController {
-  constructor(private readonly service: SettingsService) {}
+  constructor(private readonly service: SettingsService) { }
 
-  @Get()
-  getSettings() {
-    return this.service.getSettings();
+  @Get('settings')
+  async getSettings(): Promise<PraxisSettings> {
+    return {
+      backgroundColor: '#ffffff',
+      textColor: '#000000',
+      praxisName: 'D-WebCare',
+      menu: [],
+    };
   }
 
   @Post()
