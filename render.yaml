@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: d-web-care-api
+    env: node
+    region: frankfurt
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node dist/main
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        value: YOUR_MONGODB_URI_HERE
