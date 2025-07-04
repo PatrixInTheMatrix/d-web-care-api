@@ -7,6 +7,7 @@ async function bootstrap() {
   // CORS erlauben (lokal + optional späteres Deployment)
   app.enableCors({
     origin: ['http://localhost:4200', 'https://d-web-care.onrender.com'],
+    credentials: true,
   });
 
   await app.listen(process.env.PORT ?? 3000);
