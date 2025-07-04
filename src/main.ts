@@ -3,6 +3,12 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // CORS erlauben (lokal + optional späteres Deployment)
+  app.enableCors({
+    origin: ['http://localhost:4200', 'https://d-web-care.onrender.com'],
+  });
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
