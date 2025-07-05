@@ -7,7 +7,7 @@ interface PraxisSettings {
   menu: { label: string; slug: string }[];
 }
 
-@Controller('settings')
+@Controller('api/settings')
 export class SettingsController {
   private settings: PraxisSettings = {
     backgroundColor: '#ffffff',
