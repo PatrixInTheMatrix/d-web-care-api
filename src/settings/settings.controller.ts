@@ -1,19 +1,13 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { SettingsService } from './settings.service';
-
-type PraxisSettings = {
-  backgroundColor: string;
-  textColor: string;
-  praxisName: string;
-  menu: { label: string; slug: string }[];
-};
+import { PraxisSettingsDto } from './dto/praxis-settings.dto';
 
 @Controller('api/settings')
 export class SettingsController {
   constructor(private readonly service: SettingsService) {}
 
   @Get()
-  async getSettings(): Promise<PraxisSettings> {
+  getSettings(): PraxisSettingsDto {
     return {
       backgroundColor: '#ffffff',
       textColor: '#000000',
@@ -23,7 +17,8 @@ export class SettingsController {
   }
 
   @Post()
-  saveSettings(@Body() data: PraxisSettings) {
-    return this.service.saveSettings(data);
+  saveSettings(@Body() data: PraxisSettingsDto): { success: boolean } {
+    this.service.saveSettings(data);
+    return { success: true };
   }
 }
