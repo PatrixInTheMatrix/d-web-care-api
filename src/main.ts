@@ -4,9 +4,20 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // CORS erlauben (lokal + optional späteres Deployment)
+  // Dynamische CORS-Origin-Whitelist
+  const allowedOrigins = [
+    'http://localhost:4200',
+    'https://d-web-care.onrender.com',
+  ];
+
   app.enableCors({
-    origin: ['http://localhost:4200', 'https://d-web-care.onrender.com'],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked for origin: ${origin}`));
+      }
+    },
     credentials: true,
   });
 
