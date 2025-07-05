@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { SettingsService } from './settings.service';
 import { SettingsGateway } from 'src/settings.gateway';
+import { SettingsService } from './settings.service';
 
 interface PraxisSettings {
   backgroundColor: string;
@@ -19,7 +19,8 @@ export class SettingsController {
   };
 
   constructor(
-    private readonly gateway: SettingsGateway
+    private readonly service: SettingsService,
+    private readonly gateway: SettingsGateway,
   ) { }
 
   @Get()
@@ -29,8 +30,8 @@ export class SettingsController {
 
   @Post()
   saveSettings(@Body() dto: PraxisSettings): { success: boolean } {
-    this.settings = dto;
-    this.gateway.broadcastSettingsUpdate(); // 🔁 alle Clients benachrichtigen
+    this.service.saveSettings(dto);
+    this.gateway.broadcastSettingsUpdate(); // 🔥 alle Clients benachrichtigen
     return { success: true };
   }
 }

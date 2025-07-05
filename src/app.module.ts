@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import { SettingsModule } from './settings/settings.module';
-
+import { SettingsController } from './settings/settings.controller';
+import { SettingsService } from './settings/settings.service';
+import { SettingsGateway } from './settings.gateway';
 @Module({
-  imports: [
-    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost/test'),
-    SettingsModule
-  ]
+  controllers: [SettingsController],
+  providers: [SettingsService, SettingsGateway],
 })
 export class AppModule {}
