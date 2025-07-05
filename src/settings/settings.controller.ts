@@ -8,12 +8,11 @@ type PraxisSettings = {
   menu: { label: string; slug: string }[];
 };
 
-
 @Controller('api/settings')
 export class SettingsController {
-  constructor(private readonly service: SettingsService) { }
+  constructor(private readonly service: SettingsService) {}
 
-  @Get('settings')
+  @Get()
   async getSettings(): Promise<PraxisSettings> {
     return {
       backgroundColor: '#ffffff',
@@ -24,7 +23,7 @@ export class SettingsController {
   }
 
   @Post()
-  saveSettings(@Body() data: any) {
+  saveSettings(@Body() data: PraxisSettings) {
     return this.service.saveSettings(data);
   }
 }
