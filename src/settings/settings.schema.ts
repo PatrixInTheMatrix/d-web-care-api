@@ -1,12 +1,22 @@
-import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
-@Schema()
-export class Settings extends Document {
-  @Prop() backgroundColor: string;
-  @Prop() textColor: string;
-  @Prop() praxisName: string;
-  @Prop() menu: { label: string; slug: string }[];
+export interface SettingsDocument extends Document {
+  backgroundColor: string;
+  textColor: string;
+  praxisName: string;
+  menu: { label: string; slug: string }[];
 }
 
-export const SettingsSchema = SchemaFactory.createForClass(Settings);
+export const SettingsSchema = new Schema<SettingsDocument>({
+  backgroundColor: { type: String, required: true },
+  textColor: { type: String, required: true },
+  praxisName: { type: String, required: true },
+  menu: [
+    {
+      label: { type: String, required: true },
+      slug: { type: String, required: true },
+    },
+  ],
+});
+
+export const SettingsModel = { name: 'Settings', schema: SettingsSchema };
