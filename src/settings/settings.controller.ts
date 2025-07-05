@@ -1,24 +1,29 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { SettingsService } from './settings.service';
-import { PraxisSettingsDto } from './praxis-settings.dto';
 
-@Controller('api/settings')
+interface PraxisSettings {
+  backgroundColor: string;
+  textColor: string;
+  praxisName: string;
+  menu: { label: string; slug: string }[];
+}
+
+@Controller('settings')
 export class SettingsController {
-  constructor(private readonly service: SettingsService) {}
+  private settings: PraxisSettings = {
+    backgroundColor: '#ffffff',
+    textColor: '#000000',
+    praxisName: 'D-WebCare',
+    menu: [],
+  };
 
   @Get()
-  getSettings(): PraxisSettingsDto {
-    return {
-      backgroundColor: '#ffffff',
-      textColor: '#000000',
-      praxisName: 'D-WebCare',
-      menu: [],
-    };
+  getSettings(): PraxisSettings {
+    return this.settings;
   }
 
   @Post()
-  saveSettings(@Body() data: PraxisSettingsDto): { success: boolean } {
-    this.service.saveSettings(data);
+  saveSettings(@Body() dto: PraxisSettings): { success: boolean } {
+    this.settings = dto;
     return { success: true };
   }
 }

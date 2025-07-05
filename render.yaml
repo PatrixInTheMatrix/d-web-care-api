@@ -10,4 +10,4 @@ services:
       - key: NODE_ENV
         value: production
       - key: MONGO_URI
-        value: YOUR_MONGODB_URI_HERE
+        value: mongodb+srv://pperrin:Miracoolix74%21@cluster0.psftbjl.mongodb.net/d-web-care?retryWrites=true&w=majority
