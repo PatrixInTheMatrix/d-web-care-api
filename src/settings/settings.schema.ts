@@ -1,8 +1,12 @@
-import { Schema } from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-export const SettingsSchema = new Schema({
-  backgroundColor: String,
-  textColor: String,
-  praxisName: String,
-  menu: [{ label: String, slug: String }],
-}, { _id: false });
+@Schema()
+export class Settings extends Document {
+  @Prop() backgroundColor: string;
+  @Prop() textColor: string;
+  @Prop() praxisName: string;
+  @Prop() menu: { label: string; slug: string }[];
+}
+
+export const SettingsSchema = SchemaFactory.createForClass(Settings);

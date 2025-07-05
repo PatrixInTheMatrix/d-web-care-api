@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { SettingsGateway } from 'src/settings.gateway';
+import { SettingsGateway } from 'src/settings/settings.gateway';
 import { SettingsService } from './settings.service';
 
 interface PraxisSettings {
