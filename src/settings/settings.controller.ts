@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { SettingsService } from './settings.service';
-import { PraxisSettingsDto } from './dto/praxis-settings.dto';
+import { PraxisSettingsDto } from './praxis-settings.dto';
 
 @Controller('api/settings')
 export class SettingsController {
