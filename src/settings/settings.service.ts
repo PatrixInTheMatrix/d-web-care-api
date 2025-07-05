@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { SettingsDocument } from './settings.schema';
+import { Settings, SettingsDocument } from './settings.schema';
 
 @Injectable()
 export class SettingsService {
@@ -10,17 +10,15 @@ export class SettingsService {
     @InjectModel('Settings') private readonly model: Model<SettingsDocument>,
   ) {}
 
-  async getSettings(): Promise<SettingsDocument> {
+  async getSettings(): Promise<Settings> {
     const all = await this.model.find().limit(1).exec();
     if (all.length === 0) {
-      // Falls noch kein Eintrag existiert, Default schreiben
-      const defaults = new this.model({
+      return {
         backgroundColor: '#ffffff',
         textColor: '#000000',
         praxisName: 'D-WebCare',
         menu: [],
-      });
-      return defaults.save();
+      };
     }
     return all[0];
   }
